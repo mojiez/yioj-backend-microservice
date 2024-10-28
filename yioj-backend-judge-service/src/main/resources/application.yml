@@ -1,0 +1,88 @@
+# 公共配置文件
+# @author <a href="https://github.com/liyupi">程序员鱼皮</a>
+# @from <a href="https://yupi.icu">编程导航知识星球</a>
+spring:
+#  redis
+  application:
+    name: yioj-backend-judge-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  redis:
+    database: 11
+    host: localhost
+    port: 6379
+    timeout: 5000
+#    redis的连接超时 写入超时 读取超时时间
+#    password:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    password: guest
+    username: guest
+  session:
+    store-type: redis
+  # 默认 dev 环境
+  profiles:
+    active: dev
+  # 支持 swagger3
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yioj_db
+    username: root
+    password: 12345678
+  # 文件上传
+  servlet:
+    multipart:
+      # 大小限制
+      max-file-size: 10MB
+server:
+  address: 0.0.0.0
+  port: 8104
+  servlet:
+    context-path: /api/judge
+    # cookie 30 天过期
+    session:
+#      cookie:
+#        max-age: 5s
+#      单位默认是s 但是好像只能按60的整数倍来设置
+      timeout: 2592000
+      cookie:
+        name: SESSIONSERVERJJ
+        path: /api
+#        max-age: 2592000
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值（默认为 1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
+
+## 接口文档配置
+#knife4j:
+#  enable: true
+#  openapi:
+#    title: "接口文档"
+#    version: 1.0
+#    group:
+#      default:
+#        api-rule: package
+#        api-rule-resources:
+#          - com.yichen.yioj.controller
+
+# 代码沙箱配置
+codesandbox:
+  type: "remote"
+
+# 接口文档配置
+knife4j:
+  enable: true
